@@ -136,23 +136,6 @@ namespace Matrix
                 return result;
             }
 
-            public static Matrix operator *(Matrix matrix1, Matrix matrix2)
-            {
-                Matrix result = new Matrix();
-                for (int i = 0; i < 5; i++)
-                {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        int sum = 0;
-                        for (int k = 0; k < 5; k++)
-                        {
-                            sum += matrix1.GetValue(i, k) * matrix2.GetValue(k, j);
-                        }
-                        result.SetValue(i, j, sum);
-                    }
-                }
-                return result;
-            }
 
             public static Matrix operator /(Matrix matrix1, Matrix matrix2)
             {
@@ -177,8 +160,107 @@ namespace Matrix
                 return result;
             }
 
+
+            public static Matrix operator *(Matrix matrix1, Matrix matrix2)
+            {
+                Matrix result = new Matrix();
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        int sum = 0;
+                        for (int k = 0; k < 5; k++)
+                        {
+                            sum += matrix1.GetValue(i, k) * matrix2.GetValue(k, j);
+                        }
+                        result.SetValue(i, j, sum);
+                    }
+                }
+                return result;
+            }
+
+            
+            // перегрузка оператора умножения на число-множитель
+            public static Matrix operator *(Matrix matrix, int number)
+            {
+                Matrix result = new Matrix();
+                for(int i = 0; i < 5; i++)
+                {
+                    for(int j = 0;j < 5; j++)
+                    {
+                        result.SetValue(i, j, matrix.GetValue(i, j) * number);
+                    }                    
+                }
+                return result;
+            }
+
+            
+            //перегрузка оператора изменения знака матрицы
+            public static Matrix operator -(Matrix matrix)
+            {
+                Matrix result = new Matrix();
+                for(int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        result.SetValue(i, j, -matrix.GetValue(i, j));
+                    }
+                }
+                return result;
+            }
+
+            // Метод для сравнения матриц по содержимому
+            public bool Equals(Matrix other)
+            {
+                if (other == null)
+                    return false;
+
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (array1[i, j] != other.GetValue(i, j))
+                            return false;
+                    }
+                }
+                return true;
+            }
+
+            // Метод для получения хэш-кода матрицы
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    int hash = 17;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        for (int j = 0; j < 5; j++)
+                        {
+                            hash = hash * 23 + array1[i, j].GetHashCode();
+                        }
+                    }
+                    return hash;
+                }
+            }
+
+            // Метод для сравнения матриц
+            public int CompareTo(Matrix other)
+            {
+                if (other == null)
+                    return 1;
+
+                for (int i = 0; i < 5; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        int compare = array1[i, j].CompareTo(other.GetValue(i, j));
+                        if (compare != 0)
+                            return compare;
+                    }
+                }
+                return 0;
+            }
+
         }
-
-
     }
 }
