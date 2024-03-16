@@ -12,35 +12,72 @@ namespace Matrix
         static void Main(string[] args)
         {
             Random random = new Random();
+
+            // Создание и заполнение матрицы 1
             Matrix matrix1 = new Matrix(random);
-            matrix1.completionArray(random);
+            matrix1.CompletionArray(random);
             Console.WriteLine("Matrix1");
             matrix1.Print();
             Console.WriteLine();
+
+            // Создание и заполнение матрицы 2
             Matrix matrix2 = new Matrix(random);
-            matrix2.completionArray(random);
+            matrix2.CompletionArray(random);
             Console.WriteLine("Matrix2");
             matrix2.Print();
-            Matrix matrix3 = new Matrix();
-            matrix3 = matrix1 + matrix2;
             Console.WriteLine();
+
+            // Сложение matrix1 и matrix2
+            Matrix matrix3 = matrix1 + matrix2;
             Console.WriteLine("Результат сложения matrix1 и matrix2");
             matrix3.Print();
-            Matrix matrix4 = new Matrix();
-            matrix4 = matrix1 - matrix2;
             Console.WriteLine();
+
+            // вычитание matrix1 и matrix2
+            Matrix matrix4 = matrix1 - matrix2;
             Console.WriteLine("Результат вычитания matrix1 и matrix2");
             matrix4.Print();
-            Matrix matrix5 = new Matrix();
-            matrix5 = matrix1 * matrix2;
             Console.WriteLine();
+
+            // умножение matrix1 и matrix2
+            Matrix matrix5 = matrix1 * matrix2;
             Console.WriteLine("Результат умножения matrix1 и matrix2");
             matrix5.Print();
-            Matrix matrix6 = new Matrix();
-            matrix6 = matrix1 / matrix2;
             Console.WriteLine();
-            Console.WriteLine("Результат деления matrix1 и matrix2");
+
+            // деление matrix1 и matrix2
+            Matrix matrix6 = matrix1 / matrix2;
+            Console.WriteLine("Результат деления matrix1 на matrix2");
             matrix6.Print();
+            Console.WriteLine();
+
+            // умножение  matrix1 на 3
+            Matrix matrix9 = Matrix.multiplication(matrix1, 3);
+            Console.WriteLine("Результат умножения matrix1 на число 3 ");
+            matrix9.Print();
+            Console.WriteLine();
+
+            //  изменение знака матрицы
+            Matrix matrix8 = -matrix1;
+            Console.WriteLine("Результат изменения знака матрицы matrix1");
+            matrix8.Print();
+            Console.WriteLine();
+
+
+            //  Equals
+            Console.WriteLine("Результат сравнения matrix1 и matrix2:");
+            Console.WriteLine(matrix1.Equals(matrix2));
+            Console.WriteLine();
+
+            //  GetHashCode
+            Console.WriteLine("Хэш-код матрицы matrix1:");
+            Console.WriteLine(matrix1.GetHashCode());
+            Console.WriteLine();
+
+            // CompareTo
+            Console.WriteLine("Сравнение матриц matrix1 и matrix2 при помощи CompareTo:");
+            Console.WriteLine(matrix1.CompareTo(matrix2));
+            Console.WriteLine();
         }
 
         /*Реализовать класс Matrix для работы с матрицами
@@ -65,11 +102,11 @@ namespace Matrix
             // Конструктор, принимающий генератор случайных чисел
             public Matrix(Random random)
             {
-                completionArray(random);
+                CompletionArray(random);
             }
 
             // Метод для заполнения массива случайными числами
-            public void completionArray(Random random)
+            public void CompletionArray(Random random)
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -118,9 +155,10 @@ namespace Matrix
                         result.SetValue(i, j, value1 + value2); // Сложение элементов
                     }
                 }
-                return result; // Возвращаем новую матрицу с результатом
+                return result; 
             }
 
+            // Перегрузка оператора вычитания
             public static Matrix operator -(Matrix matrix1, Matrix matrix2)
             {
                 Matrix result = new Matrix();
@@ -130,13 +168,13 @@ namespace Matrix
                     {
                         int value1 = matrix1.GetValue(i, j);
                         int value2 = matrix2.GetValue(i, j);
-                        result.SetValue(i, j, value1 - value2); // Сложение элементов
+                        result.SetValue(i, j, value1 - value2); // вычитание элементов
                     }
                 }
                 return result;
             }
 
-
+            // Перегрузка оператора деления
             public static Matrix operator /(Matrix matrix1, Matrix matrix2)
             {
                 Matrix result = new Matrix();
@@ -160,7 +198,7 @@ namespace Matrix
                 return result;
             }
 
-
+            // Перегрузка оператора умножения матрицы на матрицу
             public static Matrix operator *(Matrix matrix1, Matrix matrix2)
             {
                 Matrix result = new Matrix();
@@ -181,7 +219,7 @@ namespace Matrix
 
             
             // перегрузка оператора умножения на число-множитель
-            public static Matrix operator *(Matrix matrix, int number)
+            public static Matrix multiplication(Matrix matrix, int number)
             {
                 Matrix result = new Matrix();
                 for(int i = 0; i < 5; i++)
@@ -260,7 +298,6 @@ namespace Matrix
                 }
                 return 0;
             }
-
         }
     }
 }
