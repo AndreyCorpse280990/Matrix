@@ -218,7 +218,7 @@ namespace Matrix
             }
 
             
-            // перегрузка оператора умножения на число-множитель
+            //  умножение на число-множитель
             public static Matrix multiplication(Matrix matrix, int number)
             {
                 Matrix result = new Matrix();
